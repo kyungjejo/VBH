@@ -1,0 +1,53 @@
+#equationBar {
+    height: 6px;
+    display: flex;
+    width: 640px;
+}
+
+#equationBar .equation {
+    height: inherit;
+}
+
+#progressBar {
+    height: 14px;
+    width: 640px;
+    margin-top: 1px;
+    display: flex;
+    position: relative;
+}
+
+#progressBar #background {
+    background-color: grey;
+    width: inherit;
+    height: inherit;
+    position: absolute;
+}
+
+#progressBar #time {
+    background-color: red;
+    height: inherit;
+    position: absolute;
+}
+
+#buttons {
+    width: 640px;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.equation {
+    cursor: pointer;
+}
+
+.equation:hover {
+    opacity: 0.2;
+}
+
+.rect.hover {
+    opacity: 0.2;
+    cursor: pointer;
+}
+
+.ui.cards {
+    flex-wrap: unset !important;
+}

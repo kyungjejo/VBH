@@ -1,0 +1,7 @@
+#recommendedLists {
+    width: 640px;
+}
+
+.slick-dots {
+    position: unset !important;
+}

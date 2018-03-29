@@ -1,0 +1,27 @@
+#historyBar {
+    height: 140px;
+    overflow-x: scroll;
+    white-space: nowrap;
+    display: flex;
+    padding: 10px 5px;
+    overflow-y: hidden;
+}
+
+.history {
+    position: relative;
+    width: auto !important;
+    cursor: pointer;
+}
+
+.small.history {
+    width: auto;
+    height: 70%;
+}
+
+/* .history:first-child {
+    margin-top: 1em !important;
+}
+
+.history:last-child {
+    margin-bottom: 1em !important;
+} */
