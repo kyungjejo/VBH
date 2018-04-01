@@ -64,3 +64,4 @@ typings/
 *.png
 .DS_Store
 *.pyc
+*.csv
