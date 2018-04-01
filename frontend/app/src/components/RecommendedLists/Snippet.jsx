@@ -15,7 +15,7 @@ class Snippet extends Component {
 
     onClickHandler() {
         let vid = document.getElementById(this.props.id);
-        vid.paused ? (vid.play(), this.props.playingVideoManager(this.props.id)) : vid.pause();
+        vid.paused ? vid.play() : (vid.pause(), this.props.playingVideoManager(this.props.id));
     }
 
     onTimeUpdateHandler() {
@@ -31,20 +31,21 @@ class Snippet extends Component {
         console.log("snippet paused");
         let vid = document.getElementById(this.props.id);
         vid.currentTime = this.props.start;
-        this.props.pauseHandler(this.props.id,this.props.filepath)
+        this.props.pauseHandler('snippet',this.props.id,this.props.filepath)
     }
 
     render() {
-        const filepath = require('../../static/video/' + this.props.filepath);
+        const filepath = this.props.filepath.includes(".mp4") ? this.props.filepath : this.props.filepath+".mp4";
         return (
             <video id={this.props.id}
+                    mainid={this.props.mainId}
                     filename={this.props.filepath}
                     width={this.props.width}
                     height={this.props.height}
                     onClick={this.onClickHandler}
                     onTimeUpdate={this.onTimeUpdateHandler}
                     onPause={this.pauseHandler}
-                    src={filepath}
+                    src={"https://s3.ap-northeast-2.amazonaws.com/kixlab-recipescape/video/"+filepath}
                     type="video/mp4">
             </video>
         )

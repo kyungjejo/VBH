@@ -12,7 +12,7 @@ class Buttons extends Component {
                         <Icon name='step backward' />
                         -10 sec
                     </Button>
-                    <Button basic icon labelPosition='left' onClick={() => (vid.paused ? (vid.play(), this.props.playingVideoManager('mainPlayer')) : vid.pause())}  style={{textTransform: "capitalize"}}>
+                    <Button basic icon labelPosition='left' onClick={() => (vid.paused ? vid.play() : (vid.pause(), this.props.playingVideoManager('mainPlayer')))}>
                         <Icon name={vid.paused ? "play" : "pause"} />
                         {vid.paused ? "Play" : "Pause"}
                     </Button>

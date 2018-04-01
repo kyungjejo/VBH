@@ -14,19 +14,25 @@
     margin-top: 1px;
     display: flex;
     position: relative;
-}
-
-#progressBar #background {
     background-color: grey;
-    width: inherit;
-    height: inherit;
-    position: absolute;
+    z-index: 2;
 }
 
 #progressBar #time {
     background-color: red;
     height: inherit;
     position: absolute;
+    z-index: 3;
+}
+
+#progressBar .highlight {
+    z-index: 4;
+    position: absolute;
+    background-color: white;
+}
+
+#progressBar .highlight:hover {
+    opacity: 0.2;
 }
 
 #buttons {

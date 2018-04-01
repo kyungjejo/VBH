@@ -36,8 +36,10 @@ class RecommendedLists extends Component {
     }
 
     set() {
-        let vid = document.getElementsByClassName("slick-slide slick-active")[0].querySelector("video").getAttribute('filename');
-        this.props.updateMainVideo(vid);
+        let filename = document.getElementsByClassName("slick-slide slick-active")[0].querySelector("video").getAttribute('filename');
+        let t = document.getElementsByClassName("slick-slide slick-active")[0].querySelector("video").currentTime;
+        let vid = document.getElementsByClassName("slick-slide slick-active")[0].querySelector("video").getAttribute('mainId');
+        this.props.updateMainVideo(filename,t,vid,'snippet');
     }
 
     render() {
@@ -55,12 +57,12 @@ class RecommendedLists extends Component {
         return (
             <div id="recommendedLists">
                 <Header as="h2" textAlign="center">Related Snippets</Header>      
-                {this.props.snippets.length>0 && 
+                {this.props.snippets.length > 0  && 
                 <div>
                     <Slider {...settings}>
                         {this.props.snippets.map((x,index) => 
                             <div key={index}>
-                                <Snippet pauseHandler={this.props.pauseHandler} playingVideoManager={this.props.playingVideoManager} start={x[0]} end={x[1]} filepath={x[2]} width="540" height="260" id={"snippet"+index} />
+                                <Snippet mainId={x.id} pauseHandler={this.props.pauseHandler} playingVideoManager={this.props.playingVideoManager} start={x.start} end={x.end} filepath={x.filepath} width="540" height="260" id={"snippet"+index} />
                             </div>
                         )}
                     </Slider>

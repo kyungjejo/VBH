@@ -1,0 +1,251 @@
+image,id,name,xMin,xMax,yMin,yMax
+24.36.png,1,flour,573.0,609.0,202.0,236.0
+24.36.png,2,bowl,175.0,214.0,443.0,485.0
+30.72.png,1,salt,425.0,441.0,350.0,361.0
+30.72.png,2,bowl,347.0,388.0,407.0,430.0
+33.64.png,1,salt,360.0,379.0,393.0,416.0
+33.64.png,2,bowl,340.0,366.0,451.0,473.0
+33.64.png,3,pour salt in a bowl,386.0,420.0,416.0,457.0
+35.84.png,1,pour the salt in the bowl,326.0,399.0,354.0,413.0
+35.84.png,2,bowl,322.0,351.0,443.0,471.0
+42.64.png,1,mix flour and salt with a spatula,446.0,572.0,471.0,524.0
+42.64.png,2,spatula,406.0,469.0,166.0,304.0
+42.64.png,3,flour,602.0,655.0,486.0,515.0
+42.64.png,4,bowl,185.0,295.0,263.0,355.0
+46.08.png,1,mix with a spatula,299.0,389.0,383.0,448.0
+46.08.png,2,bowl,329.0,342.0,486.0,499.0
+46.08.png,3,spatula,280.0,306.0,363.0,391.0
+46.08.png,4,flour,285.0,298.0,444.0,456.0
+51.2.png,1,spatula,129.0,162.0,199.0,262.0
+51.2.png,2,flour and salt,481.0,589.0,158.0,278.0
+51.2.png,3,bowl,721.0,826.0,48.0,136.0
+55.2.png,1,mix flour and salt,432.0,554.0,254.0,409.0
+55.2.png,2,spatula,471.0,526.0,102.0,193.0
+55.2.png,3,bowl,62.0,116.0,166.0,250.0
+70.48.png,1,put water on the yeast,281.0,388.0,49.0,171.0
+70.48.png,2,yeast,292.0,342.0,329.0,359.0
+70.48.png,3,water,332.0,367.0,217.0,277.0
+70.48.png,4,bowl,480.0,538.0,141.0,230.0
+70.48.png,5,jar,133.0,177.0,12.0,34.0
+73.04.png,1,pour water on flour and salt mix,306.0,354.0,316.0,373.0
+73.04.png,2,flour and salt mix,334.0,347.0,420.0,425.0
+73.04.png,3,water and yeast,381.0,401.0,489.0,515.0
+75.52.png,1,water,198.0,226.0,37.0,144.0
+75.52.png,2,flour and yeast,594.0,659.0,290.0,376.0
+75.52.png,3,spatula,438.0,507.0,29.0,123.0
+75.52.png,4,pour water on flour and salt mix,111.0,285.0,232.0,363.0
+75.52.png,5,bowl,603.0,651.0,26.0,89.0
+76.44.png,1,water,212.0,284.0,326.0,414.0
+76.44.png,2,flour and salt mix,565.0,612.0,326.0,385.0
+76.44.png,3,spatula,374.0,453.0,142.0,232.0
+76.44.png,4,bowl,566.0,656.0,50.0,124.0
+80.64.png,1,mix water flour and salt with the spatula,303.0,360.0,425.0,452.0
+80.64.png,2,spatula,272.0,295.0,398.0,419.0
+80.64.png,3,bowl,342.0,367.0,472.0,498.0
+80.64.png,4,yeast and water,395.0,421.0,510.0,535.0
+80.64.png,5,flour,614.0,637.0,516.0,534.0
+81.64.png,1,mis flour salt and water with spatula,313.0,381.0,410.0,449.0
+81.64.png,2,spatula,286.0,329.0,377.0,397.0
+81.64.png,3,bowl,335.0,361.0,468.0,493.0
+81.64.png,4,water and yeast,389.0,424.0,511.0,534.0
+81.64.png,5,water,194.0,234.0,442.0,488.0
+81.64.png,6,flour,600.0,631.0,521.0,535.0
+81.64.png,7,salt,512.0,528.0,500.0,522.0
+81.64.png,8,olive oil,537.0,559.0,438.0,476.0
+81.64.png,9,knive,595.0,615.0,477.0,500.0
+83.12.png,1,water salt and flour mix,128.0,224.0,57.0,122.0
+85.76.png,1,mix flour , salt, and water with spatula,308.0,397.0,409.0,459.0
+102.28.png,1,pour the yeast and water in the bowl,367.0,449.0,360.0,420.0
+102.28.png,2,bowl,341.0,362.0,444.0,461.0
+102.28.png,3,water, flour and salt,354.0,396.0,420.0,430.0
+102.28.png,4,spatula,300.0,336.0,371.0,414.0
+102.28.png,5,water,179.0,213.0,427.0,472.0
+102.28.png,6,flour,616.0,661.0,491.0,527.0
+102.28.png,7, salt,508.0,530.0,476.0,506.0
+102.28.png,8,olive oil,527.0,559.0,402.0,442.0
+106.24.png,1,mix all the ingredient,269.0,481.0,73.0,238.0
+115.8.png,1,unstuck the dough from the spatula,351.0,419.0,367.0,431.0
+119.2.png,1,knead with your hands,465.0,597.0,342.0,421.0
+119.2.png,2,dough,590.0,674.0,254.0,374.0
+119.2.png,3,bowl,55.0,120.0,106.0,206.0
+122.12.png,1,knead with your hands,335.0,419.0,403.0,435.0
+125.52.png,1,dough,544.0,627.0,244.0,314.0
+125.52.png,2,knead with your hands,624.0,729.0,157.0,264.0
+127.36.png,1,put the dough on the table,506.0,704.0,117.0,306.0
+127.36.png,2,douch,400.0,470.0,292.0,360.0
+127.36.png,3,table,316.0,383.0,43.0,93.0
+127.36.png,4,bowl,795.0,818.0,240.0,271.0
+128.16.png,1,knead with your hands,342.0,379.0,433.0,468.0
+128.16.png,2,dough,395.0,423.0,472.0,498.0
+128.16.png,3,flour,612.0,661.0,496.0,527.0
+128.16.png,4,salt,511.0,540.0,467.0,501.0
+128.16.png,5,olive oil,534.0,576.0,391.0,450.0
+157.32.png,1,make a the dough into a round shape,313.0,398.0,430.0,475.0
+157.32.png,2,olive oil,585.0,616.0,414.0,462.0
+157.32.png,3,salt,551.0,580.0,480.0,506.0
+157.32.png,4,flour,652.0,685.0,508.0,531.0
+164.64.png,1,dough,365.0,393.0,450.0,486.0
+203.88.png,1,bowl,340.0,387.0,467.0,502.0
+203.88.png,2,dough,331.0,365.0,252.0,275.0
+203.88.png,3,put the dough into the bowl,300.0,422.0,270.0,428.0
+203.88.png,4,flour,590.0,622.0,509.0,531.0
+203.88.png,5,olive oil,523.0,575.0,414.0,464.0
+207.12.png,1,bowl,219.0,240.0,361.0,382.0
+207.12.png,2,dough,341.0,341.0,499.0,499.0
+207.12.png,3,table,413.0,419.0,464.0,470.0
+212.48.png,1,dough,326.0,418.0,297.0,364.0
+212.48.png,2,extend the dough,508.0,857.0,247.0,485.0
+212.48.png,3,knive,97.0,171.0,69.0,115.0
+213.16.png,1,cut the dough with the knive,313.0,435.0,422.0,498.0
+213.16.png,2,dough,309.0,338.0,508.0,532.0
+213.16.png,3,knive,350.0,378.0,452.0,479.0
+214.68.png,1,take one half of the dough,497.0,668.0,257.0,429.0
+214.68.png,2,dough,454.0,527.0,145.0,188.0
+216.32.png,1,knead the dough,515.0,652.0,88.0,238.0
+216.32.png,2,dough,603.0,653.0,33.0,67.0
+224.56.png,1,dough,511.0,555.0,482.0,523.0
+224.56.png,2,make a round shape with the dough,398.0,444.0,454.0,506.0
+228.16.png,1,dough covered with oil,310.0,472.0,212.0,308.0
+233.6.png,1,dough,650.0,676.0,462.0,482.0
+233.6.png,2,tray,542.0,572.0,453.0,475.0
+233.6.png,3,olive oil,542.0,579.0,374.0,428.0
+233.6.png,4,flour,620.0,637.0,391.0,406.0
+233.6.png,5,cheese,84.0,114.0,440.0,458.0
+233.6.png,6,grated cheese,62.0,86.0,467.0,488.0
+233.6.png,7,basil,145.0,180.0,478.0,498.0
+233.6.png,8,tomato sauce,259.0,292.0,398.0,426.0
+233.6.png,9,onion,118.0,135.0,405.0,417.0
+233.6.png,10,grater,130.0,146.0,436.0,451.0
+233.6.png,11,mozzarella cheese,180.0,216.0,432.0,449.0
+238.6.png,1,flour,218.0,290.0,163.0,233.0
+238.6.png,2,sprinkle flour over the table,468.0,559.0,127.0,211.0
+243.84.png,1,flour,499.0,520.0,346.0,368.0
+243.84.png,2,sprinkle flour over the table,445.0,508.0,271.0,481.0
+248.96.png,1,place the dough on the flour,143.0,295.0,191.0,327.0
+248.96.png,2,flour,705.0,810.0,137.0,242.0
+248.96.png,3,table,735.0,896.0,462.0,525.0
+248.96.png,4,dough,381.0,440.0,321.0,361.0
+252.24.png,1,knead the dough with your hands,399.0,665.0,236.0,422.0
+252.24.png,2,dough,269.0,325.0,240.0,315.0
+253.68.png,1,extend the dough with your hands,386.0,485.0,333.0,407.0
+253.68.png,2,dough,436.0,452.0,411.0,425.0
+253.68.png,3,grated cheese,108.0,142.0,479.0,496.0
+253.68.png,4,parmigiano cheese,132.0,155.0,457.0,470.0
+253.68.png,5,mozzarella cheese,214.0,263.0,448.0,473.0
+253.68.png,6,basil,191.0,237.0,502.0,513.0
+253.68.png,7,tomato sauce,302.0,335.0,412.0,436.0
+269.44.png,1,place dough on the table,476.0,535.0,483.0,531.0
+274.56.png,1,extend dough with your hands,489.0,582.0,391.0,498.0
+285.12.png,1,extend the dough in a round shape,377.0,460.0,442.0,508.0
+289.52.png,1,olive oil,401.0,448.0,294.0,354.0
+291.92.png,1,pour olive oil on top of the dough,307.0,423.0,3.0,116.0
+291.92.png,2,olive oil,335.0,410.0,184.0,227.0
+291.92.png,3,dough,288.0,418.0,307.0,401.0
+295.12.png,1,oil on pizza dough,433.0,493.0,455.0,487.0
+300.44.png,1,tomato sauce,342.0,391.0,335.0,387.0
+300.44.png,2,pour tomato sauce on top of dough,405.0,508.0,404.0,481.0
+300.44.png,3,olive oil,569.0,612.0,403.0,446.0
+300.44.png,4,dough,493.0,579.0,282.0,317.0
+300.44.png,5,serving spoon,273.0,338.0,214.0,260.0
+302.96.png,1,tomato sauce,457.0,475.0,491.0,503.0
+302.96.png,2,olive oil,493.0,514.0,482.0,502.0
+302.96.png,3,dough,403.0,403.0,506.0,506.0
+305.92.png,1,extend the tomato sauce over the pizza with the serving spoon,446.0,488.0,480.0,515.0
+305.92.png,2,serving spoon,439.0,488.0,391.0,460.0
+308.52.png,1,tomato sauce,376.0,457.0,201.0,302.0
+308.52.png,2,dough,782.0,859.0,111.0,164.0
+308.52.png,3,serving spoon,310.0,361.0,52.0,141.0
+312.16.png,1,tomato should cover almost the whole dough,557.0,677.0,102.0,234.0
+312.16.png,2,tomato sauce,378.0,444.0,275.0,329.0
+312.16.png,3,tomato sauce,378.0,413.0,129.0,163.0
+312.16.png,4,serving spoon,311.0,371.0,18.0,81.0
+312.16.png,5,daugh,65.0,107.0,237.0,284.0
+320.48.png,1,grated cheese,221.0,349.0,219.0,317.0
+320.48.png,2,cheese,521.0,632.0,49.0,163.0
+320.48.png,3,grater,782.0,879.0,171.0,232.0
+320.48.png,4,basil,82.0,118.0,461.0,484.0
+322.12.png,1,grated cheese,335.0,418.0,342.0,390.0
+322.12.png,2,pizza,425.0,489.0,460.0,519.0
+322.12.png,3,grated cheese,149.0,175.0,491.0,513.0
+322.12.png,4,cheese,172.0,210.0,468.0,484.0
+324.92.png,1,sprinkle grated cheese over the pizza,431.0,537.0,388.0,519.0
+324.92.png,2,pizza,375.0,416.0,466.0,513.0
+327.8.png,1,grated cheese,121.0,217.0,195.0,289.0
+327.8.png,2,pizza,650.0,772.0,56.0,180.0
+327.8.png,3,sprinkle grated cheese over the pizza,137.0,262.0,11.0,112.0
+328.68.png,1,mozzarella cheese,191.0,359.0,102.0,242.0
+330.24.png,1,mozzarella cheese,406.0,463.0,240.0,305.0
+330.24.png,2,mozzarella cheese,250.0,289.0,452.0,485.0
+330.24.png,3,pizza,398.0,501.0,447.0,529.0
+331.24.png,1,mozzarella cheese,427.0,589.0,270.0,387.0
+340.48.png,1,divide mozzarella cheese in two with your hands,301.0,475.0,112.0,311.0
+340.48.png,2,mozzarella cheese,522.0,539.0,313.0,344.0
+341.48.png,1,place pieces of mozzarella on top of the pizza,400.0,493.0,465.0,533.0
+341.48.png,2,mozzarella cheese,468.0,518.0,418.0,446.0
+341.48.png,3,pizza,520.0,539.0,471.0,512.0
+341.48.png,4,mozzarella cheese,451.0,488.0,484.0,516.0
+344.4.png,1,mozzarella cheese,376.0,459.0,395.0,473.0
+344.4.png,2,mozzarella cheese,825.0,859.0,277.0,332.0
+344.4.png,3,mozzarella cheese,26.0,106.0,370.0,449.0
+344.4.png,4,pizza,484.0,643.0,81.0,242.0
+345.6.png,1,mozzarella cheese,752.0,900.0,284.0,394.0
+345.6.png,2,grate cheese,364.0,416.0,356.0,390.0
+350.72.png,1,mozzarella cheese,108.0,191.0,376.0,448.0
+350.72.png,2,mozzarella cheese,700.0,788.0,281.0,345.0
+350.72.png,3,grated cheese,483.0,514.0,371.0,390.0
+352.68.png,1,mozzarella cheese,382.0,415.0,182.0,211.0
+352.68.png,2,pizza,598.0,762.0,123.0,300.0
+352.68.png,3,place the mozzarella all around the pizza,494.0,677.0,381.0,475.0
+366.08.png,1,basil,425.0,438.0,487.0,516.0
+366.08.png,2,sprinkle the pizza with the basil leave,309.0,491.0,136.0,293.0
+366.08.png,3,pizza,640.0,727.0,244.0,319.0
+367.68.png,1,pizza,381.0,401.0,450.0,483.0
+367.68.png,2,basil leaves,442.0,457.0,487.0,503.0
+367.68.png,3,mozzarella cheese,508.0,520.0,483.0,496.0
+367.68.png,4,basil leaves,240.0,266.0,504.0,530.0
+367.68.png,5,mozzarella cheese,240.0,266.0,450.0,481.0
+373.88.png,1,olive oil,336.0,377.0,171.0,187.0
+373.88.png,2,mozzarella,303.0,353.0,213.0,259.0
+373.88.png,3,basil leave,589.0,656.0,133.0,228.0
+373.88.png,4,pizza,16.0,114.0,250.0,337.0
+373.88.png,5,grated cheese,779.0,824.0,305.0,343.0
+394.52.png,1,oven,660.0,775.0,146.0,283.0
+394.52.png,2,pizza,331.0,528.0,441.0,534.0
+394.52.png,3,oven spatula,591.0,608.0,32.0,51.0
+397.44.png,1,take the pizza with your hands,169.0,335.0,192.0,300.0
+397.44.png,2,oven spatulla,473.0,537.0,76.0,142.0
+407.64.png,1,oven spatula,457.0,577.0,303.0,327.0
+407.64.png,2,pizza,638.0,699.0,307.0,329.0
+407.64.png,3,oven,562.0,740.0,63.0,290.0
+410.6.png,1,pizza,538.0,727.0,237.0,388.0
+410.6.png,2,oven,40.0,176.0,92.0,145.0
+410.6.png,3,oven spatula,884.0,943.0,473.0,524.0
+412.16.png,1,put the pizza in the oven,315.0,501.0,130.0,274.0
+412.16.png,2,pizza,263.0,378.0,338.0,412.0
+412.16.png,3,oven spatula,78.0,181.0,373.0,472.0
+412.16.png,4,inside oven,188.0,344.0,1.0,77.0
+412.8.png,1,put the pizza inside the oven,555.0,684.0,150.0,341.0
+412.8.png,2,oven,539.0,596.0,79.0,126.0
+412.8.png,3,oven spatula,565.0,603.0,212.0,252.0
+417.6.png,1,oven,581.0,668.0,75.0,148.0
+417.6.png,2,oven spatula,568.0,642.0,252.0,282.0
+417.6.png,3,oizza,687.0,730.0,246.0,296.0
+417.6.png,4,take pizza out of the oven,375.0,560.0,228.0,292.0
+425.44.png,1,put pizza on the table,399.0,636.0,119.0,240.0
+428.92.png,1,cut th epizza,137.0,322.0,339.0,463.0
+449.08.png,1,break mozzarella cheese in pieces,551.0,632.0,153.0,219.0
+449.08.png,2,mozzarella cheese,632.0,657.0,271.0,314.0
+452.12.png,1,mozzarella cheese,663.0,773.0,283.0,389.0
+455.36.png,1,ham,455.0,600.0,172.0,308.0
+457.6.png,1,put slices of ham on top of the pizza,443.0,613.0,88.0,185.0
+457.6.png,2,ham,215.0,311.0,97.0,187.0
+457.6.png,3,pizza,390.0,481.0,422.0,503.0
+457.6.png,4,mozzarella,300.0,325.0,378.0,412.0
+461.12.png,1,put pizza in the oven,107.0,283.0,153.0,292.0
+461.12.png,2,ham,274.0,361.0,356.0,436.0
+461.12.png,3,mozzarella cheese,710.0,759.0,447.0,485.0
+462.72.png,1,put some rocket on top of the pizza,247.0,396.0,139.0,273.0
+462.72.png,2,rocket leaves,465.0,502.0,175.0,221.0
+462.72.png,3,pizza,750.0,911.0,293.0,457.0
+462.72.png,4,ham,412.0,478.0,378.0,425.0
+462.72.png,5,mozzarella cheese melted,715.0,772.0,214.0,255.0

@@ -18,6 +18,30 @@
     height: 70%;
 }
 
+.bar {
+    height: 100%;
+    width: 20px;
+    margin: 2px 2px;
+    text-align: center;
+}
+
+i.tiny.icon {
+    margin: unset;
+}
+
+.bar:hover {
+    opacity: 0.2;
+}
+
+.historyImage {
+    height: 110px;
+    width: 180px;
+}
+
+.filterContainer {
+    text-align: center;
+}
+
 /* .history:first-child {
     margin-top: 1em !important;
 }

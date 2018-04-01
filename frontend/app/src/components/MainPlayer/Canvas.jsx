@@ -9,23 +9,12 @@ class Canvas extends Component {
             downX: null,
             downY: null,
             rect: null,
-            dummyCoordinates: [
-                {'start':0,'length':10,'data':[{'x':10,'y':10,'object':'Dough'},{'x':30,'y':200,'object':'Pizza'}]},
-                {'start':10,'length':10,'data':[{'x':10,'y':10,'object':'Dough'}]},
-                {'start':20,'length':10,'data':[{'x':10,'y':10,'object':'Dough'}]},
-                {'start':30,'length':10,'data':[{'x':10,'y':10,'object':'Dough'}]},
-                {'start':40,'length':10,'data':[{'x':10,'y':10,'object':'Dough'}]},
-                {'start':50,'length':10,'data':[{'x':10,'y':10,'object':'Dough'}]},
-                {'start':60,'length':10,'data':[{'x':10,'y':10,'object':'Dough'}]},
-                {'start':70,'length':10,'data':[{'x':10,'y':10,'object':'Dough'}]},
-                {'start':80,'length':10,'data':[{'x':10,'y':10,'object':'Dough'}]}
-            ],
             hover: false
         }
         this.onMouseDown = this.onMouseDown.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
-        this.onMouseEnter = this.onMouseEnter.bind(this);
-        this.onMouseLeave = this.onMouseLeave.bind(this);
+        // this.onMouseEnter = this.onMouseEnter.bind(this);
+        // this.onMouseLeave = this.onMouseLeave.bind(this);
     }
 
     onMouseDown(x,y) {
@@ -49,34 +38,35 @@ class Canvas extends Component {
             })) 
     }
 
-    onMouseEnter() {
-        this.setState(prevState => ({
-            hover: true
-        }))
-    }
+    // onMouseEnter() {
+    //     this.setState(prevState => ({
+    //         hover: true
+    //     }))
+    // }
 
-    onMouseLeave() {
-        this.setState(prevState => ({
-            hover: false
-        }))
-    }
+    // onMouseLeave() {
+    //     this.setState(prevState => ({
+    //         hover: false
+    //     }))
+    // }
 
     render() {
         const styles = {
             position: "absolute",
         }
         let rects = null;
-        if (this.state.dummyCoordinates){
-            rects = this.state.dummyCoordinates[0].data.map((x,index) => 
+        if (this.props.coordinates && this.props.coordinates.length > 0) {
+            console.log(this.state.coordinates)
+            rects = this.props.coordinates.map((x,index) => 
                 <Group key={index}>
                     <Rect x={x.x} 
                         y={x.y} 
                         style={{cursor:'pointer'}}
-                        width={50} 
-                        height={50} 
-                        stroke={Konva.Util.getRandomColor()} 
-                        onMouseEnter={this.onMouseEnter} 
-                        onMouseLeave={this.onMouseLeave} 
+                        width={x.width} 
+                        height={x.height} 
+                        stroke={x.color} 
+                        // onMouseEnter={this.onMouseEnter} 
+                        // onMouseLeave={this.onMouseLeave} 
                         onClick={() => this.props.coordinateOnClick(x.object)}/>
                     <Text x={x.x} y={x.y} text={x.object}/>
                 </Group>);

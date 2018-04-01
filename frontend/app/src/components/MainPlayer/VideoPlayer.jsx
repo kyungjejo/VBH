@@ -3,8 +3,14 @@ import React, { Component } from 'react';
 class VideoPlayer extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            t: this.props.t > 0 ? this.props.t : 0,
+        }
         this.timeUpdate = this.timeUpdate.bind(this);
-        
+    }
+
+    componentDidUpdate() {
+        this.state.t !== this.props.t ? this.setState(({t: this.props.t})) : null;
     }
 
     timeUpdate() {
@@ -15,18 +21,20 @@ class VideoPlayer extends Component {
     }
 
     render() {
-        // const filepath = require('video/' + this.props.filepath);
-        const src = "https://s3.ap-northeast-2.amazonaws.com/kixlab-recipescape/video/"+this.props.filepath.split(" ").join("+");
+        const src = this.props.filepath ? "https://s3.ap-northeast-2.amazonaws.com/kixlab-recipescape/video/"+this.props.filepath : null
         return (
-            <video id={this.props.id}
-                    width={this.props.width}
-                    height={this.props.height}
-                    onTimeUpdate={this.timeUpdate}
-                    src={src}
-                    type="video/mp4"
-                    onPause={() => this.props.pauseHandler("mainPlayer",this.props.filepath)}
-                    autoPlay>
-            </video>
+            <div id='videoWrapper' style={{width:'646px',height:'366px', padding:'3px'}}>
+                <video id={this.props.id}
+                        width={this.props.width}
+                        height={this.props.height}
+                        onTimeUpdate={this.timeUpdate}
+                        src={src+"#t="+this.state.t}
+                        mainid={this.props.mainId}
+                        type="video/mp4"
+                        onPause={() => this.props.pauseHandler('main',"mainPlayer",this.props.filepath)}
+                        autoPlay>
+                </video>
+            </div>
         )
     }
 }

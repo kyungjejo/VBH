@@ -5,6 +5,8 @@ import MainPlayer from './MainPlayer';
 import HistoryBar from './HistoryBar';
 import RecommendedLists from './RecommendedLists';
 
+import { Link } from 'react-router-dom';
+
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
@@ -12,28 +14,28 @@ class Components extends Component {
     constructor(props){
         super(props);
         this.state = {
-            main: 'Bread Pizza Roll Recipe _ Quick and Easy Bread Roll Recipe _ How to Make Bread Pizza Roll-Wz93s6OKvU4.mp4',
-            h: [
-            ],
+            main: null,
+            mainId: null,
+            coordinates: [],
+            t: 0,
+            h: [],
             playing: 'mainPlayer',
-            snippets: [
-                // [10,20,'video4.mp4'],
-                // [10,20,'video5.mp4'],
-                // [10,20,'video6.mp4'],
-                // [10,20,'video7.mp4'],
-                // [10,20,'video8.mp4'],
-            ],
+            snippets: [],
+            highlights: [],
             historyHighlight: null,
+            highlightItem: '',
+            timing: [],
+            interval: false,
         }
         this.updateMainVideo = this.updateMainVideo.bind(this);
         this.playingVideoManager = this.playingVideoManager.bind(this);
         this.pauseHandler = this.pauseHandler.bind(this);
         this.equationOnClick = this.equationOnClick.bind(this);
         this.coordinateOnClick = this.coordinateOnClick.bind(this);
+        this.startInterval = this.startInterval.bind(this);
     }
 
     playingVideoManager(vid) {
-        console.log(this.state.playing,vid);
         if (this.state.playing && document.getElementById(this.state.playing) && this.state.playing!==vid) {
             document.getElementById(this.state.playing).pause();
         }
@@ -42,38 +44,74 @@ class Components extends Component {
         }))
     }
 
-    componentDidMount() {
-        fetch('/app/dummyData/')
-          .then(res => res.json())
-          .then((result) => (
-            this.dummyCoordinates = result.dummyCoordinates,
+    startInterval(timing) {
+        if (!(this.state.interval)) {
+            let interval = setInterval(function() {
+                let time = Math.ceil(document.getElementById("mainPlayer").currentTime);
+                console.log(time);
+                if (timing.includes(time-1)){
+                    document.getElementById('videoWrapper').style.backgroundColor = 'red'
+                    setTimeout(function() {document.getElementById('videoWrapper').style.backgroundColor = 'unset'},3000);
+                }
+            },1000);
             this.setState(prevState => ({
-              dummySimVideos: result.dummySimVideos
+                interval: interval
             }))
-          ));
-      }
+        }
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.interval);
+    }
+
+    componentWillMount() {
+        fetch('/app/fetchTitle?id='+this.props.match.params.number)
+        .then(res => res.json())
+        .then((result) => (
+            this.setState(prevState => ({
+                main: result.title.split(' ').join("+"),
+                mainId: this.props.match.params.number
+            }))  
+        ));
+        fetch('/app/fetchTiming?id='+this.props.match.params.number)
+            .then(res => res.json())
+            .then((result) => (console.log("timing",result.timing),this.startInterval(result.timing),this.setState(prevState => ({timing: result.timing}))))
+    }
 
     equationOnClick(equation) {
         console.log("please fetch from database");
     }
 
-    pauseHandler(videoId,filepath) {
+    pauseHandler(ty,videoId,filepath) {
         let id = videoId==="mainPlayer" ? "mainPlayer" : "snippet";
         let vid = document.getElementById(videoId);
         let h = this.state.h.slice();
         let start = 0;
         let end = 0;
         if (vid.played.length > 0){
-            start = vid.played.start(0).toFixed(2);
-            end = vid.played.end(0).toFixed(2);
+            start = vid.played.start(vid.played.length-1).toFixed(2);
+            end = vid.played.end(vid.played.length-1).toFixed(2);
         }
+        console.log(end);
         if (id==="mainPlayer") {
             for (let i=0; i<h.length; i++) {
                 if (h[i].id==="mainPlayer" && h[i].filename===filepath) start = h[i].end;
             }
         }
-        let data = {id:id,filename:filepath,start:start,end:end};
+        let data = {id:id,filename:filepath,start:start,end:end,ty:ty,mainId:vid.getAttribute("mainid")};
+        if (id==="mainPlayer"){
+            fetch('/app/fetchCoordinates?id='+vid.getAttribute("mainId")+'&time='+vid.currentTime)
+                .then(res => res.json())
+                .then((result) => (
+                    console.log(result),
+                    this.setState(prevState => ({
+                        coordinates: result.coordinates
+                    }))
+                ))
+        }
+        if (h.length>0) console.log(h[h.length-1]);
         h.push(data);
+        id==="mainPlayer" ? h.push({'display':'bar','ty':'main',action:'paused'}) : h.push({'display':'bar','ty':'snippet',action:'paused'})
         this.setState(prevState => ({
             h: h
         }))
@@ -81,16 +119,50 @@ class Components extends Component {
 
     coordinateOnClick(item) {
         console.log(item,'clicked');
+        let data = {ty:'item',display:'bar',item:item,action:'clicked'};
+        let h = this.state.h.slice();
+        h.push(data);
+        this.setState(prevState => ({
+            h: h
+        }))
+        const id = document.getElementById('mainPlayer').getAttribute("mainId");
+        fetch('/app/fetchSnippets?id='+id+'&item='+item)
+            .then(res => res.json())
+            .then((result) => (
+                console.log(result),
+                this.setState(prevState => ({
+                    snippets: result.snippets,
+                    highlights: result.highlights,
+                    highlightItem: item,
+                }))
+            ))
     }
 
     historyManage() {
 
     }
 
-    updateMainVideo(vid) {
+    updateMainVideo(vid,t,i,ty) {
+        clearInterval(this.state.interval);
         this.setState(prevState => ({
-            main: vid,
-            snippets: null
+            interval: null,
+            mainId: i
+        }))
+        fetch('/app/fetchTiming?id='+i)
+            .then(res => res.json())
+            .then((result) => (console.log("timing",result.timing), this.startInterval(result.timing),this.setState(prevState => ({timing: result.timing}))))
+        let h = this.state.h.slice();
+        ty==="snippet" ? h.push({ty:'change',display:'bar',action:'changed'}) : h.push({ty:'history',display:'bar',action:'clicked'})
+        this.setState(prevState => ({
+            h: h,
+            highlights: [],
+            highlightItem: ''
+        }))
+        this.setState(prevState => ({
+            main: vid.includes(".mp4") ? vid : vid+".mp4",
+            snippets: [],
+            t: t,
+            coordinates: [],
         }))
     }
 
@@ -99,7 +171,7 @@ class Components extends Component {
         const vid = this.props.match.params.number;
         return (
             <div>
-                <Header as='h1' textAlign="center" style={{margin: "30px 0px"}}>{title}</Header>
+                <Link to={"/"}><Header as='h1' textAlign="center" style={{margin: "30px 0px"}}>{title}</Header></Link>
                 <Divider />
                 <Grid>
                     <Grid.Column width={1} />
@@ -112,7 +184,7 @@ class Components extends Component {
                 <Grid>
                     <Grid.Column width={1} />
                     <Grid.Column width={7}>
-                        <MainPlayer coordinateOnClick={this.coordinateOnClick} equationOnClick={this.equationOnClick} pauseHandler={this.pauseHandler} playingVideoManager={this.playingVideoManager} filepath={this.state.main} width="640" height="360" id="mainPlayer"/>
+                        <MainPlayer highlightItem={this.state.highlightItem} highlights={this.state.highlights} mainId={this.state.mainId} coordinates={this.state.coordinates} coordinateOnClick={this.coordinateOnClick} t={this.state.t} equationOnClick={this.equationOnClick} pauseHandler={this.pauseHandler} playingVideoManager={this.playingVideoManager} filepath={this.state.main} width="640" height="360" id="mainPlayer"/>
                     </Grid.Column>
                     <Grid.Column width={7}>
                         <RecommendedLists snippets={this.state.snippets} pauseHandler={this.pauseHandler} playingVideoManager={this.playingVideoManager} updateMainVideo={this.updateMainVideo}/>
