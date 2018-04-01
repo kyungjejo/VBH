@@ -55,7 +55,7 @@
     "whatwg-fetch": "2.0.3"
   },
   "homepage": "http://recipescape.kyungjejo.com/",
-  "proxy": "http://localhost:8000",
+  "proxy": "http://recipescape.kyungjejo.com:5050",
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
