@@ -65,7 +65,7 @@ class Components extends Component {
     }
 
     componentWillMount() {
-        fetch('/app/fetchTitle?id='+this.props.match.params.number)
+        fetch(process.env.PUBLIC_URL+'/app/fetchTitle?id='+this.props.match.params.number)
         .then(res => res.json())
         .then((result) => (
             this.setState(prevState => ({
@@ -73,7 +73,7 @@ class Components extends Component {
                 mainId: this.props.match.params.number
             }))  
         ));
-        fetch('/app/fetchTiming?id='+this.props.match.params.number)
+        fetch(process.env.PUBLIC_URL+'/app/fetchTiming?id='+this.props.match.params.number)
             .then(res => res.json())
             .then((result) => (console.log("timing",result.timing),this.startInterval(result.timing),this.setState(prevState => ({timing: result.timing}))))
     }
@@ -100,7 +100,7 @@ class Components extends Component {
         }
         let data = {id:id,filename:filepath,start:start,end:end,ty:ty,mainId:vid.getAttribute("mainid")};
         if (id==="mainPlayer"){
-            fetch('/app/fetchCoordinates?id='+vid.getAttribute("mainId")+'&time='+vid.currentTime)
+            fetch(process.env.PUBLIC_URL+'/app/fetchCoordinates?id='+vid.getAttribute("mainId")+'&time='+vid.currentTime)
                 .then(res => res.json())
                 .then((result) => (
                     console.log(result),
@@ -126,7 +126,7 @@ class Components extends Component {
             h: h
         }))
         const id = document.getElementById('mainPlayer').getAttribute("mainId");
-        fetch('/app/fetchSnippets?id='+id+'&item='+item)
+        fetch(process.env.PUBLIC_URL+'/app/fetchSnippets?id='+id+'&item='+item)
             .then(res => res.json())
             .then((result) => (
                 console.log(result),
@@ -148,7 +148,7 @@ class Components extends Component {
             interval: null,
             mainId: i
         }))
-        fetch('/app/fetchTiming?id='+i)
+        fetch(process.env.PUBLIC_URL+'/app/fetchTiming?id='+i)
             .then(res => res.json())
             .then((result) => (console.log("timing",result.timing), this.startInterval(result.timing),this.setState(prevState => ({timing: result.timing}))))
         let h = this.state.h.slice();
