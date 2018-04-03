@@ -17,3 +17,12 @@ class idNamePair(models.Model):
     t = models.TextField()
     num = models.IntegerField()
     title = models.TextField()
+
+class Equations(models.Model):
+    videoName = models.TextField()
+    num = models.IntegerField()
+    t = models.TextField()
+    step_num = models.IntegerField()
+    step_des = models.TextField()
+    step_start = models.IntegerField()
+    step_end = models.IntegerField()

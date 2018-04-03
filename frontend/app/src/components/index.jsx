@@ -26,13 +26,16 @@ class Components extends Component {
             highlightItem: '',
             timing: [],
             interval: false,
+            equations: {},
         }
+        this.url = '';
         this.updateMainVideo = this.updateMainVideo.bind(this);
         this.playingVideoManager = this.playingVideoManager.bind(this);
         this.pauseHandler = this.pauseHandler.bind(this);
         this.equationOnClick = this.equationOnClick.bind(this);
         this.coordinateOnClick = this.coordinateOnClick.bind(this);
         this.startInterval = this.startInterval.bind(this);
+        this.fetchequations = this.fetchequations.bind(this);
     }
 
     playingVideoManager(vid) {
@@ -48,10 +51,15 @@ class Components extends Component {
         if (!(this.state.interval)) {
             let interval = setInterval(function() {
                 let time = Math.ceil(document.getElementById("mainPlayer").currentTime);
-                console.log(time);
-                if (timing.includes(time-1)){
-                    document.getElementById('videoWrapper').style.backgroundColor = 'red'
-                    setTimeout(function() {document.getElementById('videoWrapper').style.backgroundColor = 'unset'},3000);
+                if (timing.includes(time-1) && !(document.getElementById("mainPlayer").paused)){
+                    document.getElementById('objectDetected').innerHTML = 'Objects are detected. Press pause to browse objects.';
+                    document.getElementById('objectDetected').style.color = 'red';
+                    document.getElementById('videoWrapper').style.backgroundColor = 'red';
+                    setTimeout(function() {
+                        document.getElementById('videoWrapper').style.color = 'unset';
+                        document.getElementById('objectDetected').innerHTML = '';
+                        document.getElementById('videoWrapper').style.backgroundColor = 'unset';
+                    },3000);
                 }
             },1000);
             this.setState(prevState => ({
@@ -65,7 +73,7 @@ class Components extends Component {
     }
 
     componentWillMount() {
-        fetch(process.env.PUBLIC_URL+'/app/fetchTitle?id='+this.props.match.params.number)
+        fetch(this.url+'/app/fetchTitle?id='+this.props.match.params.number)
         .then(res => res.json())
         .then((result) => (
             this.setState(prevState => ({
@@ -73,13 +81,24 @@ class Components extends Component {
                 mainId: this.props.match.params.number
             }))  
         ));
-        fetch(process.env.PUBLIC_URL+'/app/fetchTiming?id='+this.props.match.params.number)
+        fetch(this.url+'/app/fetchTiming?id='+this.props.match.params.number)
             .then(res => res.json())
-            .then((result) => (console.log("timing",result.timing),this.startInterval(result.timing),this.setState(prevState => ({timing: result.timing}))))
+            .then((result) => (this.startInterval(result.timing),this.setState(prevState => ({timing: result.timing}))))
+            
+        fetch(this.url+'/app/fetchEquations?id='+this.props.match.params.number)
+            .then(res => res.json())
+            .then((result) => 
+                    this.setState(prevState => ({
+                        equations: result
+                    }))
+                )
     }
 
-    equationOnClick(equation) {
-        console.log("please fetch from database");
+    equationOnClick(equation,mainId) {
+        fetch(this.url+'/app/fetchSimEquation?eq='+equation+'&num='+mainId)
+            .then(res => res.json())
+            .then((result) => (console.log(result.snippets.same), this.setState(prevState => ({snippets: result.snippets}))))
+        // console.log("please fetch from database", equation, mainId);
     }
 
     pauseHandler(ty,videoId,filepath) {
@@ -90,17 +109,11 @@ class Components extends Component {
         let end = 0;
         if (vid.played.length > 0){
             start = vid.played.start(vid.played.length-1).toFixed(2);
-            end = vid.played.end(vid.played.length-1).toFixed(2);
+            end = vid.currentTime.toFixed(2);
         }
-        console.log(end);
-        if (id==="mainPlayer") {
-            for (let i=0; i<h.length; i++) {
-                if (h[i].id==="mainPlayer" && h[i].filename===filepath) start = h[i].end;
-            }
-        }
-        let data = {id:id,filename:filepath,start:start,end:end,ty:ty,mainId:vid.getAttribute("mainid")};
+        let data = {id:id,filename:filepath,start:end-5,end:end,ty:ty,mainId:vid.getAttribute("mainid")};
         if (id==="mainPlayer"){
-            fetch(process.env.PUBLIC_URL+'/app/fetchCoordinates?id='+vid.getAttribute("mainId")+'&time='+vid.currentTime)
+            fetch(this.url+'/app/fetchCoordinates?id='+vid.getAttribute("mainId")+'&time='+vid.currentTime)
                 .then(res => res.json())
                 .then((result) => (
                     console.log(result),
@@ -109,7 +122,6 @@ class Components extends Component {
                     }))
                 ))
         }
-        if (h.length>0) console.log(h[h.length-1]);
         h.push(data);
         id==="mainPlayer" ? h.push({'display':'bar','ty':'main',action:'paused'}) : h.push({'display':'bar','ty':'snippet',action:'paused'})
         this.setState(prevState => ({
@@ -118,7 +130,7 @@ class Components extends Component {
     }
 
     coordinateOnClick(item) {
-        console.log(item,'clicked');
+        console.log(item+'clicked')
         let data = {ty:'item',display:'bar',item:item,action:'clicked'};
         let h = this.state.h.slice();
         h.push(data);
@@ -126,10 +138,10 @@ class Components extends Component {
             h: h
         }))
         const id = document.getElementById('mainPlayer').getAttribute("mainId");
-        fetch(process.env.PUBLIC_URL+'/app/fetchSnippets?id='+id+'&item='+item)
+        const time = Math.ceil(parseInt(document.getElementById('mainPlayer').currentTime))
+        fetch(this.url+'/app/fetchSnippets?time='+time+'&id='+id+'&item='+item)
             .then(res => res.json())
             .then((result) => (
-                console.log(result),
                 this.setState(prevState => ({
                     snippets: result.snippets,
                     highlights: result.highlights,
@@ -138,19 +150,15 @@ class Components extends Component {
             ))
     }
 
-    historyManage() {
-
-    }
-
     updateMainVideo(vid,t,i,ty) {
         clearInterval(this.state.interval);
         this.setState(prevState => ({
             interval: null,
             mainId: i
         }))
-        fetch(process.env.PUBLIC_URL+'/app/fetchTiming?id='+i)
+        fetch(this.url+'/app/fetchTiming?id='+i)
             .then(res => res.json())
-            .then((result) => (console.log("timing",result.timing), this.startInterval(result.timing),this.setState(prevState => ({timing: result.timing}))))
+            .then((result) => (this.startInterval(result.timing),this.setState(prevState => ({timing: result.timing}))))
         let h = this.state.h.slice();
         ty==="snippet" ? h.push({ty:'change',display:'bar',action:'changed'}) : h.push({ty:'history',display:'bar',action:'clicked'})
         this.setState(prevState => ({
@@ -166,25 +174,48 @@ class Components extends Component {
         }))
     }
 
+    fetchequations() {
+        return (
+            this.state.mainId && 
+            fetch(this.url+'/app/fetchEquations?id='+this.state.mainId)
+                .then(res => res.json())
+                .then((result) =>                    
+                    this.setState(prevState => ({
+                    equations: result
+                })))
+        )
+    }
+
     render() {
-        let title = "RecipeScape";
         const vid = this.props.match.params.number;
         return (
             <div>
-                <Link to={"/"}><Header as='h1' textAlign="center" style={{margin: "30px 0px"}}>{title}</Header></Link>
-                <Divider />
-                <Grid>
+                <Grid style={{marginTop:'10px'}}>
                     <Grid.Column width={1} />
                     <Grid.Column width={14}>
-                        <Header as="h2" textAlign="center">View History</Header>
+                        <Header as="h5" textAlign="center">View History</Header>
                         <HistoryBar updateMainVideo={this.updateMainVideo} data={this.state.h}/>
                     </Grid.Column>
                     <Grid.Column width={1} />
                 </Grid>
+                <Link to={"/"}><Header as='h2' textAlign="center" style={{margin: "30px 0px"}}>{this.state.main && this.state.main.slice(0,this.state.main.length-16).split("+").join(" ")}</Header></Link>
+                {/* <Divider /> */}
                 <Grid>
                     <Grid.Column width={1} />
                     <Grid.Column width={7}>
-                        <MainPlayer highlightItem={this.state.highlightItem} highlights={this.state.highlights} mainId={this.state.mainId} coordinates={this.state.coordinates} coordinateOnClick={this.coordinateOnClick} t={this.state.t} equationOnClick={this.equationOnClick} pauseHandler={this.pauseHandler} playingVideoManager={this.playingVideoManager} filepath={this.state.main} width="640" height="360" id="mainPlayer"/>
+                        <MainPlayer equations={this.fetchequations}
+                                    highlightItem={this.state.highlightItem} 
+                                    highlights={this.state.highlights} 
+                                    mainId={this.state.mainId} 
+                                    coordinates={this.state.coordinates} 
+                                    coordinateOnClick={this.coordinateOnClick} 
+                                    t={this.state.t} 
+                                    equationOnClick={this.equationOnClick} 
+                                    pauseHandler={this.pauseHandler} 
+                                    playingVideoManager={this.playingVideoManager} 
+                                    filepath={this.state.main} 
+                                    equations={this.state.equations}
+                                    width="640" height="360" id="mainPlayer"/>
                     </Grid.Column>
                     <Grid.Column width={7}>
                         <RecommendedLists snippets={this.state.snippets} pauseHandler={this.pauseHandler} playingVideoManager={this.playingVideoManager} updateMainVideo={this.updateMainVideo}/>

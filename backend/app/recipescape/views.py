@@ -5,8 +5,9 @@ import csv
 import os
 from django.templatetags.static import static
 import random
+from random import shuffle
 
-from .models import Annotations, idNamePair
+from .models import Annotations, idNamePair, Equations
 
 # Create your views here.
 
@@ -30,12 +31,6 @@ def idToModel(t,i,name):
         title=name
     )
 
-# with open("static/id.csv") as csvfile:
-#     reader = csv.reader(csvfile)
-#     for row in reader:
-#         print (row)
-#         idToModel("pizza",row[0],row[1])
-
 def csvToDB(t):
     for f in os.listdir('static/annotations/'):
         if f.endswith(".csv"):
@@ -56,6 +51,26 @@ def csvToDB(t):
                         ymax = int(float(row[-1]))
                     )
 # csvToDB('pizza')
+
+def minToSec(t):
+    return int(t.split(":")[0])*60+int(t.split(":")[1])
+
+def eqToDB():
+    t="pizza"
+    with open('static/segmentation.csv') as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            if row[0].isdigit():
+                Equations.objects.get_or_create(
+                    num = int(row[0]),
+                    videoName = row[2],
+                    t=t,
+                    step_num = int(row[3]),
+                    step_des = row[4],
+                    step_start = minToSec(row[5]),
+                    step_end = minToSec(row[6])
+                )
+# eqToDB()
 
 def listView(request):
     response_data = {}
@@ -89,21 +104,37 @@ def fetchCoordinates(request):
 def fetchSnippets(request):
     item = request.GET.get('item')
     num = request.GET.get('id')
+    time = int(request.GET.get('time'))
+    e,l = fetchStep(num,time)
     response_data = {}
-    response_data['snippets'] = []
+    response_data['snippets'] = {}
+    response_data['snippets']['same'] = []
+    response_data['snippets']['not'] = {}
     response_data['highlights'] = []
     title = idNamePair.objects.get(num=num).title
     for a in Annotations.objects.filter(obj=item, videoName=title):
         time = a.img.replace(".png",'')
         response_data['highlights'].append(time)
-    for a in Annotations.objects.filter(obj=item):
-        if len(response_data['snippets'])>10:
-            break   
+    for a in Annotations.objects.filter(obj=item).exclude(videoName=title):
         start = float(a.img.replace('.png',''))
         end = start+15
         videoName = "+".join(a.videoName.split(" "))
         name = a.videoName+".mp4" if ".mp4" not in a.videoName else a.videoName
-        response_data['snippets'].append({'id': idNamePair.objects.get(title=name).num,'start':start,'end':end,'filepath':videoName})
+        time = "%2d:%02d" %(int(start)/60,int(start)%60)
+        snippet_num = idNamePair.objects.get(title=name).num
+        try:
+            snippet_e, snippet_l = fetchStep(snippet_num,int(start))
+            if snippet_e.step_des == e.step_des:
+                response_data['snippets']['same'].append({'id': snippet_num,'start':start,'end':end,'filepath':videoName,'time':time,'step_num':snippet_e.step_num,'step_len':snippet_l,'step_des':snippet_e.step_des})
+            else:
+                if snippet_e.step_des not in response_data['snippets']['not']:
+                    response_data['snippets']['not'][snippet_e.step_des] = []
+                else:
+                    response_data['snippets']['not'][snippet_e.step_des].append({'id': snippet_num,'start':start,'end':end,'filepath':videoName,'time':time,'step_num':snippet_e.step_num,'step_len':snippet_l,'step_des':snippet_e.step_des})
+        except TypeError:
+            v = 0
+    shuffle(response_data['snippets']['same'])
+    # shuffle(response_data['snippets']['not'])
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 def fetchTitle(request):
@@ -117,11 +148,57 @@ def fetchTiming(request):
     if request.GET.get('id'):
         num = request.GET.get('id')
         title = idNamePair.objects.get(num=num).title
-    print ("title", title)
     response_data = {}
     response_data['timing'] = []
     for a in Annotations.objects.filter(videoName=title):
         response_data['timing'].append(int(float(a.img.replace('.png',''))))
     response_data['timing'] = sorted(list(set(response_data['timing'])))
-    print ("timing", response_data['timing'])
     return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+def fetchEquation(request):
+    num = request.GET.get('id')
+    response_data = {}
+    response_data['equations'] = []
+    r = lambda: random.randint(0,255)
+    for e in Equations.objects.filter(num=num):
+        color = '#%02X%02X%02X' % (r(),r(),r())
+        response_data['equations'].append({'step_num':e.step_num,'step_des':e.step_des,'step_start':e.step_start,'step_end':e.step_end,'length':e.step_end-e.step_start+1,'color':color})
+    duration = 0
+    for x in response_data['equations']:
+        if x['step_end'] > duration:
+            duration = x['step_end']
+    response_data['duration'] = duration
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+def fetchSimEquation(request):
+    eq = request.GET.get("eq")
+    num = request.GET.get('num')
+    response_data = {}
+    response_data['snippets'] = {}
+    response_data['snippets']['same'] = []
+    title = idNamePair.objects.get(num=num).title
+    des = Equations.objects.get(step_num=eq,num=num).step_des
+    print (des)
+    for a in Equations.objects.filter(step_des=des).exclude(num=num):
+        print (a.step_des)
+        start = a.step_start
+        end = a.step_end
+        videoName = "+".join(idNamePair.objects.get(num=a.num).title.split(" "))
+        name = a.videoName+".mp4" if ".mp4" not in a.videoName else a.videoName
+        time = "%2d:%02d" %(int(start)/60,int(start)%60)
+        snippet_num = a.num
+        try:
+            snippet_e, snippet_l = fetchStep(snippet_num,int(start))
+            response_data['snippets']['same'].append({'id': snippet_num,'start':start,'end':end,'filepath':videoName,'time':time,'step_num':snippet_e.step_num,'step_len':snippet_l,'step_des':snippet_e.step_des})
+        except TypeError:
+            v=0
+    shuffle(response_data['snippets']['same'])
+    print (response_data['snippets']['same'])
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+
+def fetchStep(num,time):
+    for e in Equations.objects.filter(num=num):
+        if e.step_start<=time and e.step_end>=time:
+            return e,len(Equations.objects.filter(num=num))

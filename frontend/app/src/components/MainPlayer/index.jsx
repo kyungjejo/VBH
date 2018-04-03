@@ -40,13 +40,16 @@ class MainPlayer extends Component {
     render() {
         return (
             <div>
-                <Header as="h2">Main Video</Header>
+                <Header as="h3">Main Video</Header>
+                <div style={{width:'640px'}}>
+                    <Header id='objectDetected' as="h4" textAlign='center'></Header>
+                </div>
                 <div>
                     {this.isPlaying() && <Canvas coordinates={this.props.coordinates} coordinateOnClick={this.props.coordinateOnClick} width="640" height="360" />}
                     <VideoPlayer mainId={this.props.mainId} t={this.props.t} pauseHandler={this.props.pauseHandler} filepath={this.props.filepath} getCurrentTime={this.getCurrentTime} width="640" height="360" id="mainPlayer" />
                 </div>
                 <div style={{margin: '3px'}}>
-                    <EquationBar equationOnClick={this.props.equationOnClick} equations={this.equations}/>
+                    <EquationBar mainId={this.props.mainId} equationOnClick={this.props.equationOnClick} equations={this.props.equations} />
                     <MainProgressBar highlightItem={this.props.highlightItem} highlights={this.props.highlights} currentPercentage={this.state.currentPercentage}/>
                     <Buttons playingVideoManager={this.props.playingVideoManager}/>
                 </div>

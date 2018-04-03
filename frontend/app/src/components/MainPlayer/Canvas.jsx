@@ -65,9 +65,7 @@ class Canvas extends Component {
                         width={x.width} 
                         height={x.height} 
                         stroke={x.color} 
-                        // onMouseEnter={this.onMouseEnter} 
-                        // onMouseLeave={this.onMouseLeave} 
-                        onClick={() => this.props.coordinateOnClick(x.object)}/>
+                        onClick={() => (console.log(x.object),this.props.coordinateOnClick(x.object))}/>
                     <Text x={x.x} y={x.y} text={x.object}/>
                 </Group>);
         }
@@ -76,7 +74,10 @@ class Canvas extends Component {
             rect = this.state.rect;
         return(
             <div>
-                <Stage onMouseDown={(e) => this.onMouseDown(e.evt.offsetX,e.evt.offsetY)} onMouseUp={(e) => this.onMouseUp(e.evt.offsetX,e.evt.offsetY)} style={styles} width={this.props.width} height={this.props.height}>
+                <Stage onMouseDown={(e) => this.onMouseDown(e.evt.offsetX,e.evt.offsetY)} 
+                        onMouseUp={(e) => this.onMouseUp(e.evt.offsetX,e.evt.offsetY)} 
+                        style={styles} width={this.props.width} 
+                        height={this.props.height}>
                     <Layer>
                         {rects}
                         {rect}

@@ -5,6 +5,7 @@
     display: flex;
     padding: 10px 5px;
     overflow-y: hidden;
+    margin-top: 5px;
 }
 
 .history {
@@ -31,6 +32,10 @@ i.tiny.icon {
 
 .bar:hover {
     opacity: 0.2;
+}
+
+.ui.cards>.card {
+    width: 150px !important;
 }
 
 .historyImage {

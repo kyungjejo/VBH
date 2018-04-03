@@ -45,9 +45,9 @@ class Filter extends Component {
     render() {
         return (
             <div>
-                <Button className="filterBtn" onClick={this.showAll}>Show All</Button>
-                <Button className="filterBtn" onClick={this.showMain}>Show Main Player</Button>
-                <Button className="filterBtn" onClick={this.showSnippet}>Show Snippets</Button>
+                <Button size='tiny' className="filterBtn" onClick={this.showAll}>Show All</Button>
+                <Button size='tiny' className="filterBtn" onClick={this.showMain}>Show Main Player</Button>
+                <Button size='tiny' className="filterBtn" onClick={this.showSnippet}>Show Snippets</Button>
             </div>
         )
     }

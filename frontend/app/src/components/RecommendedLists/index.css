@@ -5,3 +5,11 @@
 .slick-dots {
     position: unset !important;
 }
+
+.segment:hover {
+    background-color: rgba(34,36,38,.25)
+}
+
+.segment {
+    cursor: pointer;
+}

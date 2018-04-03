@@ -33,7 +33,10 @@ class Bar extends Component {
         }
         return (
             <Popup
-                trigger={<div className="bar" style={{backgroundColor:color, paddingTop:'50px'}}><Icon name={icon} color="black" size="tiny" ></Icon></div>}
+                trigger={<div className="bar" style={{backgroundColor:color, paddingTop:'50px'}}>
+                            <Icon name={icon} color="black" size="tiny" ></Icon>
+                        </div>}
+                position='top center'
                 content={noun+' was '+this.props.data.action}
             />
         )

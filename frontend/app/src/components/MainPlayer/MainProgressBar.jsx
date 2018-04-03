@@ -19,8 +19,10 @@ class MainProgressBar extends Component {
                                 style={{width: '3px', height: '100%', 'left': (parseFloat(x)/duration)*100+"%"}}
                                 onClick={() => document.getElementById("mainPlayer").currentTime = parseFloat(x)}>
                             </div>}
-                        content={this.props.highlightItem}
-                    />
+                        position='top center'
+                    >
+                    <Popup.Content><b>{this.props.highlightItem.charAt(0).toUpperCase()+this.props.highlightItem.slice(1)}</b> also appears here.</Popup.Content>
+                    </Popup>
                 )}
                 <div id="time" style={{width: this.props.currentPercentage}}></div>
             </div>
