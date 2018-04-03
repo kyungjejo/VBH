@@ -28,7 +28,8 @@ class Components extends Component {
             interval: false,
             equations: {},
         }
-        this.url = '';
+        this.url = 'https://server.kyungjejo.com';
+	this.cors = {'Access-Control-Allow-Origin':'*'};
         this.updateMainVideo = this.updateMainVideo.bind(this);
         this.playingVideoManager = this.playingVideoManager.bind(this);
         this.pauseHandler = this.pauseHandler.bind(this);
@@ -73,7 +74,7 @@ class Components extends Component {
     }
 
     componentWillMount() {
-        fetch(this.url+'/app/fetchTitle?id='+this.props.match.params.number)
+        fetch(this.url+'/app/fetchTitle?id='+this.props.match.params.number,this.cors)
         .then(res => res.json())
         .then((result) => (
             this.setState(prevState => ({
@@ -81,11 +82,11 @@ class Components extends Component {
                 mainId: this.props.match.params.number
             }))  
         ));
-        fetch(this.url+'/app/fetchTiming?id='+this.props.match.params.number)
+        fetch(this.url+'/app/fetchTiming?id='+this.props.match.params.number,this.cors)
             .then(res => res.json())
             .then((result) => (this.startInterval(result.timing),this.setState(prevState => ({timing: result.timing}))))
             
-        fetch(this.url+'/app/fetchEquations?id='+this.props.match.params.number)
+        fetch(this.url+'/app/fetchEquations?id='+this.props.match.params.number,this.cors)
             .then(res => res.json())
             .then((result) => 
                     this.setState(prevState => ({
@@ -95,10 +96,10 @@ class Components extends Component {
     }
 
     equationOnClick(equation,mainId) {
-        fetch(this.url+'/app/fetchSimEquation?eq='+equation+'&num='+mainId)
+        fetch(this.url+'/app/fetchSimEquation?eq='+equation+'&num='+mainId,this.cors)
             .then(res => res.json())
             .then((result) => (console.log(result.snippets.same), this.setState(prevState => ({snippets: result.snippets}))))
-        // console.log("please fetch from database", equation, mainId);
+        // console.log("please ,this.corsfetch from database", equation, mainId);
     }
 
     pauseHandler(ty,videoId,filepath) {
@@ -113,7 +114,7 @@ class Components extends Component {
         }
         let data = {id:id,filename:filepath,start:end-5,end:end,ty:ty,mainId:vid.getAttribute("mainid")};
         if (id==="mainPlayer"){
-            fetch(this.url+'/app/fetchCoordinates?id='+vid.getAttribute("mainId")+'&time='+vid.currentTime)
+            fetch(this.url+'/app/fetchCoordinates?id='+vid.getAttribute("mainId")+'&time='+vid.currentTime,this.cors)
                 .then(res => res.json())
                 .then((result) => (
                     console.log(result),
@@ -139,7 +140,7 @@ class Components extends Component {
         }))
         const id = document.getElementById('mainPlayer').getAttribute("mainId");
         const time = Math.ceil(parseInt(document.getElementById('mainPlayer').currentTime))
-        fetch(this.url+'/app/fetchSnippets?time='+time+'&id='+id+'&item='+item)
+        fetch(this.url+'/app/fetchSnippets?time='+time+'&id='+id+'&item='+item,this.cors)
             .then(res => res.json())
             .then((result) => (
                 this.setState(prevState => ({
@@ -156,7 +157,7 @@ class Components extends Component {
             interval: null,
             mainId: i
         }))
-        fetch(this.url+'/app/fetchTiming?id='+i)
+        fetch(this.url+'/app/fetchTiming?id='+i,this.cors)
             .then(res => res.json())
             .then((result) => (this.startInterval(result.timing),this.setState(prevState => ({timing: result.timing}))))
         let h = this.state.h.slice();
@@ -177,7 +178,7 @@ class Components extends Component {
     fetchequations() {
         return (
             this.state.mainId && 
-            fetch(this.url+'/app/fetchEquations?id='+this.state.mainId)
+            fetch(this.url+'/app/fetchEquations?id='+this.state.mainId,this.cors)
                 .then(res => res.json())
                 .then((result) =>                    
                     this.setState(prevState => ({

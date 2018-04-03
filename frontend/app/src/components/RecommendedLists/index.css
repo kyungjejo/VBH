@@ -13,3 +13,14 @@
 .segment {
     cursor: pointer;
 }
+
+.slick-slide {
+	width: 520px !important;
+	outline: none !important;
+}
+
+.slick-track {
+	opacity: 1; 
+	transform: translate3d(-1040px, 0px, 0px) !important;
+	width: 39520px !important;
+}

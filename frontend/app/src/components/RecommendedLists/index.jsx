@@ -62,9 +62,8 @@ class RecommendedLists extends Component {
     }
 
     sliderHandler() {
-        if (document.getElementsByClassName("slick-active slick-center slick-current")[0]){
+        if (document.getElementsByClassName("slick-active slick-center slick-current")[0] && document.querySelector('div[data-index="'+this.state.slidesToShow+'"]') && document.querySelectorAll('ul li')[this.state.slidesToShow]){
             document.getElementsByClassName("slick-active slick-center slick-current")[0].remove("slick-active slick-center slick-current");
-            console.log(document.querySelector('div[data-index="'+this.state.slidesToShow+'"]'),this.state.slidesToShow);
             if (document.querySelector('div[data-index="'+this.state.slidesToShow+'"]'))
             document.querySelector('div[data-index="'+this.state.slidesToShow+'"]').classList.add("slick-active","slick-center","slick-current");
             document.querySelector('ul li.slick-active').remove('slick-active');
@@ -79,11 +78,10 @@ class RecommendedLists extends Component {
             // infinite: true,
             centerPadding: '60px',
             dots: true,
-            slidesToShow: 1,
+            slidesToShow: this.state.slidesToShow ? this.state.slidesToShow : 1,
             speed: 500,
             nextArrow: <NextArrow />,
             prevArrow: <PrevArrow />,
-            onReInit: this.sliderHandler
           };
         return (
             <div id="recommendedLists">

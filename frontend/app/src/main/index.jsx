@@ -9,9 +9,12 @@ class Main extends Component {
         this.state = {
             items: null
         }
+	this.url = 'https://server.kyungjejo.com';
+	let header = {'Access-Control-Allow-Origin':'*',"Content-Type": "application/json",};
+	this.cors = {header:header}
     }
     componentDidMount() {
-        fetch('/app/listView/')
+        fetch(this.url+'/app/listView/',this.cors)
           .then(res => res.json())
           .then((result) => (
               console.log(result.items),
