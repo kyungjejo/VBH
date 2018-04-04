@@ -7,6 +7,6 @@ urlpatterns = [
     url('fetchCoordinates', views.fetchCoordinates, name="fetchCoordinates"),
     url('fetchSnippets', views.fetchSnippets, name="fetchSnippets"),
     url('fetchTiming', views.fetchTiming, name="fetchTiming"),
-    url('fetchEquation', views.fetchEquation, name="fetchEquation"),
+    url('fetchEquations', views.fetchEquations, name="fetchEquations"),
     url('fetchSimEquation', views.fetchSimEquation, name="fetchSimEquation"),
 ]

@@ -29,7 +29,9 @@ class Components extends Component {
             equations: {},
         }
         this.url = 'https://server.kyungjejo.com';
-	this.cors = {'Access-Control-Allow-Origin':'*'};
+        this.cors = {'Access-Control-Allow-Origin':'*'};
+        // this.url = '';
+        // this.cors = {};
         this.updateMainVideo = this.updateMainVideo.bind(this);
         this.playingVideoManager = this.playingVideoManager.bind(this);
         this.pauseHandler = this.pauseHandler.bind(this);
@@ -37,6 +39,7 @@ class Components extends Component {
         this.coordinateOnClick = this.coordinateOnClick.bind(this);
         this.startInterval = this.startInterval.bind(this);
         this.fetchequations = this.fetchequations.bind(this);
+        this.validateEq = this.validateEq.bind(this);
     }
 
     playingVideoManager(vid) {
@@ -98,7 +101,7 @@ class Components extends Component {
     equationOnClick(equation,mainId) {
         fetch(this.url+'/app/fetchSimEquation?eq='+equation+'&num='+mainId,this.cors)
             .then(res => res.json())
-            .then((result) => (console.log(result.snippets.same), this.setState(prevState => ({snippets: result.snippets}))))
+            .then((result) => (this.setState(prevState => ({snippets: result.snippets}))))
         // console.log("please ,this.corsfetch from database", equation, mainId);
     }
 
@@ -175,15 +178,25 @@ class Components extends Component {
         }))
     }
 
+    validateEq(e){
+        console.log(e);
+        if (e[e.length-1].step_end !== document.getElementById("mainPlayer").duration) {
+            e.push({'step_num':'-','step_des':'No step','step_start':e[e.length-1].step_end,'step_end':document.getElementById("mainPlayer").duration,'length':document.getElementById("mainPlayer").duration-e[e.length-1].step_end,'color':"#FFFFFF"})
+            console.log(e[e.length-1]);
+        }
+        return e;
+    }
+
     fetchequations() {
         return (
             this.state.mainId && 
             fetch(this.url+'/app/fetchEquations?id='+this.state.mainId,this.cors)
                 .then(res => res.json())
-                .then((result) =>                    
+                .then((result) =>                
                     this.setState(prevState => ({
-                    equations: result
-                })))
+                        equations: this.validateEq(result)
+                    }))
+                )
         )
     }
 

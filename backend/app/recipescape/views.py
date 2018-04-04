@@ -134,6 +134,7 @@ def fetchSnippets(request):
         except TypeError:
             v = 0
     shuffle(response_data['snippets']['same'])
+    if len(response_data['snippets']['same'])>10: response_data['snippets']['same'] = response_data['snippets']['same'][:10]
     # shuffle(response_data['snippets']['not'])
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
@@ -155,14 +156,18 @@ def fetchTiming(request):
     response_data['timing'] = sorted(list(set(response_data['timing'])))
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
-def fetchEquation(request):
+def fetchEquations(request):
     num = request.GET.get('id')
     response_data = {}
     response_data['equations'] = []
     r = lambda: random.randint(0,255)
     for e in Equations.objects.filter(num=num):
         color = '#%02X%02X%02X' % (r(),r(),r())
-        response_data['equations'].append({'step_num':e.step_num,'step_des':e.step_des,'step_start':e.step_start,'step_end':e.step_end,'length':e.step_end-e.step_start+1,'color':color})
+
+        if len(response_data['equations']) > 0 and response_data['equations'][len(response_data['equations'])-1]['step_end'] != e.step_start:
+            tmp_start = response_data['equations'][len(response_data['equations'])-1]['step_end']
+            response_data['equations'].append({'step_num':'-','step_des':'No step','step_start':tmp_start,'step_end':e.step_start,'length':e.step_start-tmp_start,'color':"#FFFFFF"})    
+        response_data['equations'].append({'step_num':e.step_num,'step_des':e.step_des,'step_start':e.step_start,'step_end':e.step_end+1,'length':e.step_end+1-e.step_start,'color':color})
     duration = 0
     for x in response_data['equations']:
         if x['step_end'] > duration:
@@ -177,6 +182,7 @@ def fetchSimEquation(request):
     response_data['snippets'] = {}
     response_data['snippets']['same'] = []
     title = idNamePair.objects.get(num=num).title
+    print (eq, num)
     des = Equations.objects.get(step_num=eq,num=num).step_des
     print (des)
     for a in Equations.objects.filter(step_des=des).exclude(num=num):
@@ -193,7 +199,7 @@ def fetchSimEquation(request):
         except TypeError:
             v=0
     shuffle(response_data['snippets']['same'])
-    print (response_data['snippets']['same'])
+    # if len(response_data['snippets']['same'])>10: response_data['snippets']['same'] = response_data['snippets']['same'][:10]
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 

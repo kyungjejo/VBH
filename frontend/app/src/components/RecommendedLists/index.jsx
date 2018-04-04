@@ -14,7 +14,7 @@ function NextArrow(props) {
       <div
         className={className}
         style={{...style, display: 'block', background: 'grey'}}
-        onClick={onClick}
+        onClick={() => (console.log(onClick),onClick)}
       ></div>
     );
   }
@@ -36,19 +36,23 @@ class RecommendedLists extends Component {
         this.state = {
             toggle: 'ListView',
             snippet: [],
-            slidesToShow: 1,
+            slidesToShow: 0,
             same: true,
         }
         this.set = this.set.bind(this);
         this.onToggleHandler = this.onToggleHandler.bind(this);
-        this.sliderHandler = this.sliderHandler.bind(this);
     }
 
     set() {
         let filename = document.getElementsByClassName("slick-slide slick-active")[0].querySelector("video").getAttribute('filename');
         let t = document.getElementsByClassName("slick-slide slick-active")[0].querySelector("video").currentTime;
         let vid = document.getElementsByClassName("slick-slide slick-active")[0].querySelector("video").getAttribute('mainId');
+        alert(filename)
         this.props.updateMainVideo(filename,t,vid,'snippet');
+        this.setState({
+            toggle: 'ListView',
+            slidesToShow: 0
+        })
     }
 
     onToggleHandler(num) {
@@ -61,24 +65,14 @@ class RecommendedLists extends Component {
         // document.querySelector('div[data-index="'+num+'"').add("slick-active slick-center slick-current");
     }
 
-    sliderHandler() {
-        if (document.getElementsByClassName("slick-active slick-center slick-current")[0] && document.querySelector('div[data-index="'+this.state.slidesToShow+'"]') && document.querySelectorAll('ul li')[this.state.slidesToShow]){
-            document.getElementsByClassName("slick-active slick-center slick-current")[0].remove("slick-active slick-center slick-current");
-            if (document.querySelector('div[data-index="'+this.state.slidesToShow+'"]'))
-            document.querySelector('div[data-index="'+this.state.slidesToShow+'"]').classList.add("slick-active","slick-center","slick-current");
-            document.querySelector('ul li.slick-active').remove('slick-active');
-            document.querySelectorAll('ul li')[this.state.slidesToShow].classList.add('slick-active');
-        }
-    }
-
     render() {
         let settings = {
             className: 'center',
             centerMode: true,
-            // infinite: true,
             centerPadding: '60px',
             dots: true,
-            slidesToShow: this.state.slidesToShow ? this.state.slidesToShow : 1,
+            slidesToShow: 1,
+            initialSlide: this.state.slidesToShow,
             speed: 500,
             nextArrow: <NextArrow />,
             prevArrow: <PrevArrow />,
@@ -90,10 +84,10 @@ class RecommendedLists extends Component {
                     (
                         this.props.snippets.same &&
                         this.props.snippets.same.length > 0  && 
-                        (<div>
+                        <div>
                             <Slider {...settings}>
                                 {this.props.snippets.same.map((x,index) => 
-                                    <div key={index}>
+                                    <div key={index} >
                                         <Header as="h5" textAlign="center">{x.filepath.split("+").join(" ").slice(0,x.filepath.length-12)}<br/>Time - {x.time}</Header>
                                         <Snippet mainId={x.id} pauseHandler={this.props.pauseHandler} playingVideoManager={this.props.playingVideoManager} start={x.start} end={x.end} filepath={x.filepath} width="540" height="260" id={"snippet"+index} />
                                     </div>
@@ -107,7 +101,7 @@ class RecommendedLists extends Component {
                                     </Button.Content>
                                 </Button>
                             </div>
-                        </div>)
+                        </div>
                     )
                     :
                     (

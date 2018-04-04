@@ -23,7 +23,7 @@ print (BASE_DIR)
 SECRET_KEY = '-fnm0_y3mh9+bm(%tphe(hws+jp&*7-%@#9f1u4ibr**=mg$3f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
@@ -70,11 +70,6 @@ TEMPLATES = [
         },
     },
 ]
-MIDDLEWARE_CLASSES = (
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.BrokenLinkEmailsMiddleware',
-    'django.middleware.common.CommonMiddleware',
-)
 
 WSGI_APPLICATION = 'app.wsgi.application'
 

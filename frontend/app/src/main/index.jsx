@@ -9,9 +9,11 @@ class Main extends Component {
         this.state = {
             items: null
         }
-	this.url = 'https://server.kyungjejo.com';
+    this.url = 'https://server.kyungjejo.com';
 	let header = {'Access-Control-Allow-Origin':'*',"Content-Type": "application/json",};
-	this.cors = {header:header}
+    this.cors = {header:header}
+    // this.url = '';
+    // this. cors = {}
     }
     componentDidMount() {
         fetch(this.url+'/app/listView/',this.cors)
